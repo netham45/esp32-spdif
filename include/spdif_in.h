@@ -1,19 +1,20 @@
 #ifndef SPDIF_H
 #define SPDIF_H
 
+#include "sdkconfig.h"
 #include "esp_err.h"
 #include "freertos/ringbuf.h"
 #include "driver/rmt_rx.h"
 #include <string.h>
 
-// Configuration constants
-#define RMT_RESOLUTION_HZ 80000000 // 80MHz resolution for maximum accuracy
-#define RMT_MEM_BLOCK_SYMBOLS 8192 // Larger buffer for better performance
-#define SYMBOL_BUFFER_SIZE (8192) // 64KB symbol buffer
-#define PCM_BUFFER_SIZE (4096)     // 8KB PCM output buffer
-#define DECODER_TASK_STACK 4096   // 4KB stack for decoder task
-#define DECODER_TASK_PRIORITY 10   // High priority for audio
-#define MIN_SAMPLES_FOR_ANALYSIS 10000 // Minimum samples before attempting analysis
+// Configuration constants sourced from Kconfig
+#define RMT_RESOLUTION_HZ CONFIG_SPDIF_IN_RMT_RESOLUTION_HZ
+#define RMT_MEM_BLOCK_SYMBOLS CONFIG_SPDIF_IN_RMT_MEM_BLOCK_SYMBOLS
+#define SYMBOL_BUFFER_SIZE CONFIG_SPDIF_IN_SYMBOL_BUFFER_SIZE
+#define PCM_BUFFER_SIZE CONFIG_SPDIF_IN_PCM_BUFFER_SIZE
+#define DECODER_TASK_STACK CONFIG_SPDIF_IN_DECODER_TASK_STACK
+#define DECODER_TASK_PRIORITY CONFIG_SPDIF_IN_DECODER_TASK_PRIORITY
+#define MIN_SAMPLES_FOR_ANALYSIS CONFIG_SPDIF_IN_MIN_SAMPLES_FOR_ANALYSIS
 
 #ifdef __cplusplus
 extern "C" {

@@ -7,16 +7,16 @@
 static const char *TAG = "spdif_histogram";
 
 // Pulse timing analysis constants
-#define HISTOGRAM_BINS 256             // Number of histogram bins for pulse width
-#define MAX_PULSE_WIDTH_NS 2000        // Maximum expected pulse width in nanoseconds
-#define MIN_SAMPLES_FOR_ANALYSIS 10000 // Minimum samples before attempting analysis
-#define PULSE_RATIO_TOLERANCE 0.15     // 15% tolerance for pulse ratio matching
+#define HISTOGRAM_BINS CONFIG_SPDIF_IN_HISTOGRAM_BIN_COUNT
+#define MAX_PULSE_WIDTH_NS CONFIG_SPDIF_IN_MAX_PULSE_WIDTH_NS
+#define MIN_SAMPLES_FOR_ANALYSIS CONFIG_SPDIF_IN_MIN_SAMPLES_FOR_ANALYSIS
+#define PULSE_RATIO_TOLERANCE (CONFIG_SPDIF_IN_PULSE_RATIO_TOLERANCE_MILLIPCT / 1000.0f)
 
 // S/PDIF spec distribution expectations
-#define EXPECTED_SHORT_PULSE_PCT 60.0f  // ~60% short pulses
-#define EXPECTED_MEDIUM_PULSE_PCT 35.0f // ~35% medium pulses
-#define EXPECTED_LONG_PULSE_PCT 5.0f    // ~5% long pulses (preambles)
-#define DISTRIBUTION_TOLERANCE 100.0f   // ±100% tolerance for distribution
+#define EXPECTED_SHORT_PULSE_PCT (CONFIG_SPDIF_IN_EXPECTED_SHORT_PULSE_PCT_TENTHS / 10.0f)
+#define EXPECTED_MEDIUM_PULSE_PCT (CONFIG_SPDIF_IN_EXPECTED_MEDIUM_PULSE_PCT_TENTHS / 10.0f)
+#define EXPECTED_LONG_PULSE_PCT (CONFIG_SPDIF_IN_EXPECTED_LONG_PULSE_PCT_TENTHS / 10.0f)
+#define DISTRIBUTION_TOLERANCE CONFIG_SPDIF_IN_DISTRIBUTION_TOLERANCE_PCT
 
 // Pulse timing analysis data
 struct g_timing_t g_timing = {0};

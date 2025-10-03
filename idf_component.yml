@@ -2,6 +2,7 @@ dependencies:
   idf:
     version: '>=5.4'
 description: SPDIF RMT Input Driver
+kconfig_file: "Kconfig"
 repository: git://github.com/netham45/esp32-spdif-in
 repository_info:
   commit_sha: 000000000000000000000000000000000000000e

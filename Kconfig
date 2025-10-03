@@ -1,0 +1,59 @@
+menu "SPDIF In"
+    config SPDIF_IN_RMT_RESOLUTION_HZ
+        int "RMT resolution (Hz)"
+        default 80000000
+
+    config SPDIF_IN_RMT_MEM_BLOCK_SYMBOLS
+        int "RMT mem block symbols"
+        default 8192
+
+    config SPDIF_IN_SYMBOL_BUFFER_SIZE
+        int "Symbol buffer size (bytes)"
+        default 8192
+
+    config SPDIF_IN_PCM_BUFFER_SIZE
+        int "PCM buffer size (bytes)"
+        default 4096
+
+    config SPDIF_IN_DECODER_TASK_STACK
+        int "Decoder task stack (bytes)"
+        default 4096
+
+    config SPDIF_IN_DECODER_TASK_PRIORITY
+        int "Decoder task priority"
+        default 10
+
+    config SPDIF_IN_HISTOGRAM_BIN_COUNT
+        int "Histogram bin count"
+        default 256
+
+    config SPDIF_IN_MAX_PULSE_WIDTH_NS
+        int "Max pulse width tracked (ns)"
+        default 2000
+
+    config SPDIF_IN_MIN_SAMPLES_FOR_ANALYSIS
+        int "Min samples before analysis"
+        default 10000
+
+    config SPDIF_IN_PULSE_RATIO_TOLERANCE_MILLIPCT
+        int "Pulse ratio tolerance (milli-fraction)"
+        default 150
+        help
+            Expressed in thousandths (0.150 => 150). Controls maximum deviation from ideal 1:2:3 ratios.
+
+    config SPDIF_IN_EXPECTED_SHORT_PULSE_PCT_TENTHS
+        int "Expected short pulse percentage (tenths)"
+        default 600
+
+    config SPDIF_IN_EXPECTED_MEDIUM_PULSE_PCT_TENTHS
+        int "Expected medium pulse percentage (tenths)"
+        default 350
+
+    config SPDIF_IN_EXPECTED_LONG_PULSE_PCT_TENTHS
+        int "Expected long pulse percentage (tenths)"
+        default 50
+
+    config SPDIF_IN_DISTRIBUTION_TOLERANCE_PCT
+        int "Distribution tolerance (percent)"
+        default 100
+endmenu

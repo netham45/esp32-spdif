@@ -4,7 +4,7 @@
 #include "spdif_in.h"
 
 extern struct g_timing_t {
-    uint32_t histogram[256];
+    uint32_t histogram[CONFIG_SPDIF_IN_HISTOGRAM_BIN_COUNT];
     uint32_t total_samples;
     uint32_t base_unit_ticks;
     uint32_t short_pulse_ticks;
