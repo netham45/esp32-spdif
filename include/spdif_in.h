@@ -19,7 +19,7 @@
 extern "C" {
 #endif
 
-static RingbufHandle_t pcm_buffer = NULL;
+extern RingbufHandle_t spdif_in_pcm_buffer;
 
 typedef struct
 {
@@ -50,22 +50,22 @@ void spdif_receiver_deinit(void);
 uint32_t spdif_receiver_get_sample_rate(void);
 
 inline static RingbufHandle_t spdif_in_get_ringbuf(){
-    return pcm_buffer;
+    return spdif_in_pcm_buffer;
 }
 
 inline static int spdif_receiver_read(uint8_t *buffer, size_t size)
 {
-    if (!pcm_buffer)
+    if (!spdif_in_pcm_buffer)
     {
         return 0;
     }
     size_t received_size = 0;
     uint8_t *data = (uint8_t *)xRingbufferReceiveUpTo(
-        pcm_buffer, &received_size, pdMS_TO_TICKS(10), size);
+        spdif_in_pcm_buffer, &received_size, pdMS_TO_TICKS(10), size);
     if (data && received_size > 0)
     {
         memcpy(buffer, data, received_size);
-        vRingbufferReturnItem(pcm_buffer, (void *)data);
+        vRingbufferReturnItem(spdif_in_pcm_buffer, (void *)data);
         return received_size;
     }
     return 0;

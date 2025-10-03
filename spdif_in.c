@@ -20,6 +20,8 @@ static rmt_receive_config_t g_rx_config;
 // 256-byte LUT for pulse classification
 static uint8_t pulse_lut[256];
 
+RingbufHandle_t spdif_in_pcm_buffer = NULL;
+
 #define TIMING_VARIANCE 3
 
 // Preamble patterns - both normal and inverted
@@ -143,7 +145,7 @@ static uint8_t pulse_lut[256];
                     else                                                             \
                     {                                                                \
                         int16_t stereo[2] = {left_sample, s16};                      \
-                        xRingbufferSend(pcm_buffer, stereo, sizeof(stereo), 10000);  \
+                        xRingbufferSend(spdif_in_pcm_buffer, stereo, sizeof(stereo), 10000);  \
                     }                                                                \
                 }                                                                    \
             }                                                                        \
@@ -204,7 +206,7 @@ static void spdif_decoder_task(void *arg)
     rmt_symbol_word_t *symbols = NULL;
 
     ESP_LOGI("SPDIF_IN", "Decoder task started, waiting for PCM buffer");
-    while (!pcm_buffer) vTaskDelay(100);
+    while (!spdif_in_pcm_buffer) vTaskDelay(100);
     ESP_LOGI("SPDIF_IN", "PCM buffer found, continuing");
     while (1)
     {
@@ -281,8 +283,8 @@ esp_err_t spdif_receiver_init(int input_pin, void (*init_done_cb)(void))
 {
     ESP_LOGI("SPDIF_IN", "SPDIF Init Called");
 
-    pcm_buffer = xRingbufferCreate(PCM_BUFFER_SIZE, RINGBUF_TYPE_BYTEBUF);
-    if (!pcm_buffer)
+    spdif_in_pcm_buffer = xRingbufferCreate(PCM_BUFFER_SIZE, RINGBUF_TYPE_BYTEBUF);
+    if (!spdif_in_pcm_buffer)
     {
         return ESP_FAIL;
     }
