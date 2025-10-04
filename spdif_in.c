@@ -283,7 +283,7 @@ esp_err_t spdif_receiver_init(int input_pin, void (*init_done_cb)(void))
 {
     ESP_LOGI("SPDIF_IN", "SPDIF Init Called");
 
-    spdif_in_pcm_buffer = xRingbufferCreate(PCM_BUFFER_SIZE, RINGBUF_TYPE_BYTEBUF);
+    spdif_in_pcm_buffer = xRingbufferCreate(SPDIF_PCM_BUFFER_SIZE, RINGBUF_TYPE_BYTEBUF);
     if (!spdif_in_pcm_buffer)
     {
         return ESP_FAIL;
